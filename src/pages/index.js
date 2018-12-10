@@ -7,12 +7,12 @@ import Image from '../components/image'
 const IndexPage = () => (
   <Layout>
     <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
+    <p>Welcome to the GCP Marketplace!</p>
+    <p>Check out our partner profiles!</p>
+    <Link to="/profiles/">Go to Profile Index</Link>
     <div style={{ maxWidth: '300px', marginBottom: '1.45rem' }}>
       <Image />
     </div>
-    <Link to="/page-2/">Go to page 2</Link>
   </Layout>
 )
 

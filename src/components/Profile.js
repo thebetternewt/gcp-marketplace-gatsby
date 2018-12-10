@@ -6,11 +6,20 @@ import styled from 'styled-components'
 import Layout from './layout'
 
 const Profile = props => {
-  const { handle, name } = props.data.mongodbMarketplaceProfiles
+  const {
+    handle,
+    name,
+    location,
+    avatar,
+    bio,
+  } = props.data.mongodbMarketplaceProfiles
 
   return (
     <Layout>
       <h1>{name}</h1>
+      <img src={avatar} alt={name} style={{ width: 100, borderRadius: 100 }} />
+      <p>{location}</p>
+      <div dangerouslySetInnerHTML={{ __html: bio }} />
     </Layout>
   )
 }
@@ -24,7 +33,9 @@ export const query = graphql`
       handle
       email
       name
+      bio
       avatar
+      location
     }
   }
 `

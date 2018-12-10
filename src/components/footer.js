@@ -46,7 +46,9 @@ export default () => (
       <>
         <Footer>
           <div className="footer-logo">
-            <Img fluid={data.gcpLogo.childImageSharp.fluid} />
+            <Link to="/">
+              <Img fluid={data.gcpLogo.childImageSharp.fluid} />
+            </Link>
           </div>
           <span>
             {' '}
