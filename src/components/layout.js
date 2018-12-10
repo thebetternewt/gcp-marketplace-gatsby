@@ -14,6 +14,7 @@ const LayoutWrapper = styled.div`
   align-items: center;
   width: 100%;
   min-height: 100vh;
+  padding-top: calc(60px + 1rem);
 `
 
 const Layout = ({ children }) => (

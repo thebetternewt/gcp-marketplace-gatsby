@@ -35,6 +35,11 @@ const UserFooterNav = styled.div`
   background-color: #fff;
   /* box-shadow: 3px 5px 15px rgba(0, 0, 0, 0.3); */
 
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
   i {
     font-size: 1.5rem;
   }
@@ -57,7 +62,9 @@ export default () => (
           </span>
         </Footer>
         <UserFooterNav>
-          <i className="fal fa-home" />
+          <Link to="/">
+            <i className="fal fa-home" />
+          </Link>
           <i className="fal fa-plus-square" />
           <i className="fal fa-user-circle" />
         </UserFooterNav>

@@ -5,6 +5,14 @@ import styled from 'styled-components'
 
 import Layout from './layout'
 
+const ProfileImageContainer = styled.div`
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 1rem;
+`
+
 const Profile = props => {
   const {
     handle,
@@ -17,9 +25,14 @@ const Profile = props => {
   return (
     <Layout>
       <h1>{name}</h1>
-      <img src={avatar} alt={name} style={{ width: 100, borderRadius: 100 }} />
+      <ProfileImageContainer>
+        <img src={avatar} alt={name} />
+      </ProfileImageContainer>
       <p>{location}</p>
       <div dangerouslySetInnerHTML={{ __html: bio }} />
+      <div style={{ marginTop: '2rem' }}>
+        <Link to="/partners">Browse all partner profiles</Link>
+      </div>
     </Layout>
   )
 }

@@ -7,14 +7,14 @@ const SecondPage = ({ data }) => {
   const profileLinks = data.allMongodbMarketplaceProfiles.edges.map(
     ({ node }) => (
       <li key={node.mongodb_id}>
-        <Link to={`/partners/${node.handle}`}>{node.name}</Link>
+        {node.name} (<Link to={`/partners/${node.handle}`}>view</Link>)
       </li>
     )
   )
 
   return (
     <Layout>
-      <h1>Profiles</h1>
+      <h1>Partners</h1>
       <ul>{profileLinks}</ul>
       <Link to="/">Go back to the homepage</Link>
     </Layout>

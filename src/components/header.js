@@ -3,6 +3,12 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
+const HeaderWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+`
+
 const HeaderColorBar = styled.div`
   position: relative;
   display: flex;
@@ -30,13 +36,66 @@ const HeaderContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 40px;
+  height: 50px;
   padding: 0 15px;
-  box-shadow: 3px 5px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 5px 15px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+
+  i {
+    font-size: 1.5rem;
+  }
+`
+
+const HeaderNav = styled.nav`
+  display: none;
+  justify-content: flex-end;
+  align-items: center;
+
+  a {
+    display: block;
+    position: relative;
+    margin-left: 15px;
+    text-decoration: none;
+    color: inherit;
+    padding-bottom: 5px;
+    &.active:after {
+      display: block;
+      position: absolute;
+      bottom: 3px;
+      left: 0;
+      content: ' ';
+      width: 100%;
+      height: 2px;
+      background-color: #9eb5b3;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    display: flex;
+  }
+`
+
+// TODO: Figure out appropriate hit area (margin/padding) for menu toggle
+const HeaderMenuToggle = styled.button`
+  border: none;
+  padding: 3px 0 3px 15px;
+  background-color: transparent;
+  @media screen and (min-width: 700px) {
+    display: none;
+  }
+`
+// TODO: Get rid of !important
+const LoginLink = styled(Link)`
+  background-color: #7f9c7d;
+  border-radius: 5px;
+  padding: 5px 15px;
+  margin-left: 15px;
+
+  color: #fff !important;
 `
 
 const Header = ({ siteTitle }) => (
-  <div>
+  <HeaderWrapper>
     <HeaderColorBar>
       <div />
       <div />
@@ -44,9 +103,24 @@ const Header = ({ siteTitle }) => (
     </HeaderColorBar>
     <HeaderContainer>
       <i className="fal fa-cog" />
-      <i className="fal fa-bars" />
+      <HeaderNav>
+        <Link to="/" activeClassName="active">
+          Home
+        </Link>
+        <Link to="/partners" activeClassName="active">
+          Partners
+        </Link>
+        <Link to="/sign-up" activeClassName="active">
+          Sign Up
+        </Link>
+        <LoginLink to="/log-in">Log In</LoginLink>
+      </HeaderNav>
+
+      <HeaderMenuToggle>
+        <i className="fal fa-bars" />
+      </HeaderMenuToggle>
     </HeaderContainer>
-  </div>
+  </HeaderWrapper>
 )
 
 Header.propTypes = {

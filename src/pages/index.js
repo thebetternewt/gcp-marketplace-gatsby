@@ -9,7 +9,7 @@ const IndexPage = () => (
     <h1>Hi people</h1>
     <p>Welcome to the GCP Marketplace!</p>
     <p>Check out our partner profiles!</p>
-    <Link to="/profiles/">Go to Profile Index</Link>
+    <Link to="/partners/">Browser partner profiles</Link>
     <div style={{ maxWidth: '300px', marginBottom: '1.45rem' }}>
       <Image />
     </div>
