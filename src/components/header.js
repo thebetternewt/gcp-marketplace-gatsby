@@ -1,7 +1,10 @@
 import { Link } from 'gatsby'
+import { navigate } from '@reach/router'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
+
+import { isAuthenticated, logOutUser } from '../apollo/client'
 
 const HeaderWrapper = styled.div`
   position: fixed;
@@ -94,34 +97,68 @@ const LoginLink = styled(Link)`
   color: #fff !important;
 `
 
-const Header = ({ siteTitle }) => (
-  <HeaderWrapper>
-    <HeaderColorBar>
-      <div />
-      <div />
-      <div />
-    </HeaderColorBar>
-    <HeaderContainer>
-      <i className="fal fa-cog" />
-      <HeaderNav>
-        <Link to="/" activeClassName="active">
-          Home
-        </Link>
-        <Link to="/partners" activeClassName="active">
-          Partners
-        </Link>
-        <Link to="/sign-up" activeClassName="active">
-          Sign Up
-        </Link>
-        <LoginLink to="/log-in">Log In</LoginLink>
-      </HeaderNav>
+const LogoutLink = styled.button`
+  display: block;
+  margin-left: 15px;
+  color: inherit;
+  padding: 0;
+  padding-bottom: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+`
 
-      <HeaderMenuToggle>
-        <i className="fal fa-bars" />
-      </HeaderMenuToggle>
-    </HeaderContainer>
-  </HeaderWrapper>
-)
+const Header = ({ siteTitle }) => {
+  const authLinks = (
+    <>
+      <Link to="/" activeClassName="active">
+        Profile
+      </Link>
+      <LogoutLink
+        onClick={async () => {
+          await logOutUser()
+          navigate('/')
+        }}
+      >
+        Log Out
+      </LogoutLink>
+    </>
+  )
+  const nonAuthLinks = (
+    <>
+      <Link to="/sign-up" activeClassName="active">
+        Sign Up
+      </Link>
+      <LoginLink to="/log-in">Log In</LoginLink>
+    </>
+  )
+
+  return (
+    <HeaderWrapper>
+      <HeaderColorBar>
+        <div />
+        <div />
+        <div />
+      </HeaderColorBar>
+      <HeaderContainer>
+        <i className="fal fa-cog" />
+        <HeaderNav>
+          <Link to="/" activeClassName="active">
+            Home
+          </Link>
+          <Link to="/partners" activeClassName="active">
+            Partners
+          </Link>
+          {isAuthenticated() ? authLinks : nonAuthLinks}
+        </HeaderNav>
+
+        <HeaderMenuToggle>
+          <i className="fal fa-bars" />
+        </HeaderMenuToggle>
+      </HeaderContainer>
+    </HeaderWrapper>
+  )
+}
 
 Header.propTypes = {
   siteTitle: PropTypes.string,

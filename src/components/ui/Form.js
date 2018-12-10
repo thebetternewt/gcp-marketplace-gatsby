@@ -7,7 +7,7 @@ export const Form = styled.form`
 
   input,
   button[type='submit'] {
-    border-radius: 3px;
+    border-radius: 5px;
   }
 
   input {
@@ -17,7 +17,17 @@ export const Form = styled.form`
 
   button[type='submit'] {
     background-color: #7f9c7d;
+    box-sizing: border-box;
     color: #fff;
+    border: 2px solid #fff;
+    padding: 0.3rem 0;
     cursor: pointer;
+
+    &:hover,
+    &:active {
+      background-color: #fff;
+      color: #7f9c7d;
+      border-color: #7f9c7d;
+    }
   }
 `

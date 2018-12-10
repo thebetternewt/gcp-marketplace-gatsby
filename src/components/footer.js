@@ -19,6 +19,11 @@ const Footer = styled.div`
     width: 130px;
     margin-bottom: 1rem;
   }
+
+  @media screen and (min-width: 700px) {
+    /* Remove margin bottom for nav on larger screens */
+    margin-bottom: 0;
+  }
 `
 
 const UserFooterNav = styled.div`
@@ -42,6 +47,10 @@ const UserFooterNav = styled.div`
 
   i {
     font-size: 1.5rem;
+  }
+
+  @media screen and (min-width: 700px) {
+    display: none;
   }
 `
 
