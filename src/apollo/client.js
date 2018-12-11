@@ -8,7 +8,7 @@ const defaultState = {
 }
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
+  uri: process.env.GATSBY_APOLLO_SERVER_URI,
   clientState: {
     defaults: defaultState,
   },
