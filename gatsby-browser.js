@@ -7,7 +7,9 @@ import client from './src/apollo/client'
 
 import checkToken from './src/util/checkToken'
 
-checkToken()
+if (typeof window !== 'undefined') {
+  checkToken()
+}
 
 export const wrapRootElement = ({ element, props }) => {
   return <ApolloProvider client={client}>{element}</ApolloProvider>

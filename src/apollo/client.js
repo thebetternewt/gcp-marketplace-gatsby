@@ -1,4 +1,5 @@
 import ApolloClient from 'apollo-boost'
+import fetch from 'isomorphic-fetch'
 import { AUTH_QUERY } from './queries'
 
 const defaultState = {
@@ -8,6 +9,7 @@ const defaultState = {
 }
 
 const client = new ApolloClient({
+  fetch,
   uri: process.env.GATSBY_APOLLO_SERVER_URI,
   clientState: {
     defaults: defaultState,
