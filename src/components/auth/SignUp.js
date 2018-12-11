@@ -1,9 +1,7 @@
-import { StaticQuery, Link, graphql } from 'gatsby'
-import Img from 'gatsby-image'
 import React, { Component } from 'react'
-import styled from 'styled-components'
 
 import { Form } from '../ui/Form'
+import { Button } from '../ui/Buttons'
 
 class SignUp extends Component {
   state = {
@@ -46,7 +44,7 @@ class SignUp extends Component {
             id="password"
             onChange={this.handleChange}
           />
-          <button type="submit">Sign Up</button>
+          <Button type="submit">Sign Up</Button>
         </Form>
       </div>
     )

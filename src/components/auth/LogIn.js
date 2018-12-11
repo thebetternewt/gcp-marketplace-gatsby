@@ -1,9 +1,6 @@
-import { StaticQuery, Link, graphql } from 'gatsby'
-import { Redirect } from '@reach/router'
-import Img from 'gatsby-image'
 import React, { Component } from 'react'
+import { Redirect } from '@reach/router'
 import { Mutation } from 'react-apollo'
-import styled from 'styled-components'
 import jwtDecode from 'jwt-decode'
 import {
   isAuthenticated,
@@ -14,6 +11,7 @@ import {
 import { LOGIN } from '../../apollo/mutations'
 
 import { Form } from '../ui/Form'
+import { Button } from '../ui/Buttons'
 
 class LogIn extends Component {
   state = {
@@ -52,11 +50,14 @@ class LogIn extends Component {
               const token = data.login
               localStorage.setItem('token', token)
               setAuthenticatedUser(jwtDecode(token))
-              // const path = getRedirectPath();
-              // if (path) {
-              //   setRedirectPath(null);
-              // return <Redirect to={path} />;
-              // }
+
+              // Handle friendly redirect
+              const path = getRedirectPath()
+              if (path) {
+                setRedirectPath(null)
+                return <Redirect noThrow to={path} />
+              }
+
               return <Redirect noThrow to="/" />
             }
             return (
@@ -81,7 +82,7 @@ class LogIn extends Component {
                   id="password"
                   onChange={this.handleChange}
                 />
-                <button type="submit">Log In</button>
+                <Button type="submit">Log In</Button>
                 {error &&
                   error.graphQLErrors.map(({ message }, i) => (
                     <p key={i} style={{ color: 'red' }}>

@@ -75,7 +75,7 @@ export default () => (
             <i className="fal fa-home" />
           </Link>
           <i className="fal fa-plus-square" />
-          <Link to="/partners">
+          <Link to="/profile">
             <i className="fal fa-user-circle" />
           </Link>
         </UserFooterNav>

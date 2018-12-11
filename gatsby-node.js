@@ -25,7 +25,7 @@ exports.createPages = ({ graphql, actions }) => {
       results.data.allMongodbMarketplaceProfiles.edges.forEach(({ node }) => {
         createPage({
           path: `partners/${node.handle}`,
-          component: path.resolve('./src/components/Profile.js'),
+          component: path.resolve('./src/components/PartnerProfile.js'),
           context: {
             handle: node.handle,
           },

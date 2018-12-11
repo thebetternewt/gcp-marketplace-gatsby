@@ -1,6 +1,6 @@
 import ApolloClient from 'apollo-boost'
 import fetch from 'isomorphic-fetch'
-import { AUTH_QUERY } from './queries'
+import { AUTH_QUERY, REDIRECT_QUERY } from './queries'
 
 const defaultState = {
   isAuthenticated: false,
@@ -28,9 +28,7 @@ const client = new ApolloClient({
 
 client.onResetStore(() =>
   client.cache.writeData({
-    data: {
-      isAuthenticated: false,
-    },
+    data: defaultState,
   })
 )
 
@@ -64,11 +62,11 @@ export const setRedirectPath = redirectPath => {
   })
 }
 
-// export const getRedirectPath = () => {
-//   const { redirectPath } = client.readQuery({
-//     query: REDIRECT_QUERY,
-//   })
-//   return redirectPath
-// }
+export const getRedirectPath = () => {
+  const { redirectPath } = client.readQuery({
+    query: REDIRECT_QUERY,
+  })
+  return redirectPath
+}
 
 export default client

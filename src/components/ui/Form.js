@@ -14,20 +14,4 @@ export const Form = styled.form`
     border: 1px solid #ddd;
     margin-bottom: 1rem;
   }
-
-  button[type='submit'] {
-    background-color: #7f9c7d;
-    box-sizing: border-box;
-    color: #fff;
-    border: 2px solid #fff;
-    padding: 0.3rem 0;
-    cursor: pointer;
-
-    &:hover,
-    &:active {
-      background-color: #fff;
-      color: #7f9c7d;
-      border-color: #7f9c7d;
-    }
-  }
 `

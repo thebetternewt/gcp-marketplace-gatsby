@@ -111,7 +111,7 @@ const LogoutLink = styled.button`
 const Header = ({ siteTitle }) => {
   const authLinks = (
     <>
-      <Link to="/" activeClassName="active">
+      <Link to="/profile" activeClassName="active">
         Profile
       </Link>
       <LogoutLink
@@ -120,7 +120,7 @@ const Header = ({ siteTitle }) => {
           navigate('/')
         }}
       >
-        Log Out
+        Logout
       </LogoutLink>
     </>
   )
