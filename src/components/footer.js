@@ -3,6 +3,10 @@ import Img from 'gatsby-image'
 import React from 'react'
 import styled from 'styled-components'
 
+import { isAuthenticated } from '../apollo/client'
+
+import logo from '../images/logos/gcp-logo-white.png'
+
 const Footer = styled.div`
   display: flex;
   flex-direction: column;
@@ -15,9 +19,19 @@ const Footer = styled.div`
   font-size: 0.8rem;
   margin-bottom: 50px;
 
+  a {
+    margin-bottom: 0;
+  }
+
   .footer-logo {
     width: 130px;
-    margin-bottom: 1rem;
+    img {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  span {
+    margin-bottom: 0.5rem;
   }
 
   @media screen and (min-width: 700px) {
@@ -61,20 +75,21 @@ export default () => (
         <Footer>
           <div className="footer-logo">
             <Link to="/">
-              <Img fluid={data.gcpLogo.childImageSharp.fluid} />
+              {/* <Img fluid={data.gcpLogo.childImageSharp.fluid} /> */}
+              <img src={logo} alt="Garden City Project" />
             </Link>
           </div>
           <span>
-            {' '}
             <i className="fal fa-copyright" /> {new Date().getFullYear()} Garden
             City Project
           </span>
         </Footer>
+
         <UserFooterNav>
           <Link to="/">
             <i className="fal fa-home" />
           </Link>
-          <i className="fal fa-plus-square" />
+          {isAuthenticated() && <i className="fal fa-plus-square" />}
           <Link to="/profile">
             <i className="fal fa-user-circle" />
           </Link>

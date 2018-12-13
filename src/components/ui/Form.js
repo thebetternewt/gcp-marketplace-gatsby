@@ -11,6 +11,7 @@ export const Form = styled.form`
   }
 
   input {
+    padding: 5px 1rem;
     border: 1px solid #ddd;
     margin-bottom: 1rem;
   }

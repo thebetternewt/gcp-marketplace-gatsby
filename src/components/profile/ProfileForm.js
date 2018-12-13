@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import { Redirect } from '@reach/router'
 import { Mutation } from 'react-apollo'
 import styled from 'styled-components'
+
 import { isAuthenticated } from '../../apollo/client'
+import { CREATE_PROFILE } from '../../apollo/mutations'
 import * as colors from '../ui/Colors'
+import { navigate } from 'gatsby'
 
 // import { Form } from '../ui/Form'
 
@@ -130,6 +133,7 @@ const ProgressBar = styled.div`
 class ProfileForm extends Component {
   state = {
     step: 0,
+    handle: '',
     bio: '',
     location: '',
     website: '',
@@ -155,7 +159,7 @@ class ProfileForm extends Component {
     }))
 
   render() {
-    const { step, bio, location, website, error } = this.state
+    const { step, handle, bio, location, website, error } = this.state
 
     // TODO: Handle redirect if not auth in router
     if (!isAuthenticated()) {
@@ -164,8 +168,16 @@ class ProfileForm extends Component {
 
     const steps = [
       {
+        name: 'handle',
+        question: 'Choose a handle.',
+        info: 'This is how people will find to your profile.',
+        type: 'text',
+        placeholder: 'bob_smith123',
+      },
+      {
         name: 'bio',
         question: 'Tell us about yourself...',
+        info: 'Just a short bio between 100 & 500 characters.',
         type: 'textarea',
       },
       {
@@ -185,44 +197,69 @@ class ProfileForm extends Component {
     const currentStep = steps[step]
 
     return (
-      <FormBox>
-        {step > 0 && (
-          <PrevButton
-            className="fal fa-arrow-left"
-            onClick={this.handlePrevStep}
-          />
-        )}
-        {step !== steps.length - 1 && (
-          <NextButton
-            className="fal fa-arrow-right"
-            error={!!error}
-            onClick={this.handleNextStep}
-          />
-        )}
-        <InputGroup>
-          {currentStep.type === 'textarea' ? (
-            <textarea
-              name={currentStep.name}
-              rows="5"
-              value={this.state[currentStep.name]}
-              onChange={this.handleChange}
-              required
-            />
-          ) : (
-            <input
-              name={currentStep.name}
-              type={currentStep.type}
-              placeholder={currentStep.placeholder}
-              value={this.state[currentStep.name]}
-              onChange={this.handleChange}
-              required
-            />
-          )}
-          <label>{currentStep.question}</label>
-          <InputProgress error={!!error} />
-        </InputGroup>
-        <ProgressBar complete={step / steps.length} />
-      </FormBox>
+      <Mutation mutation={CREATE_PROFILE}>
+        {(createProfile, { data, loading, error }) => {
+          if (loading) {
+            return <p>Loading...</p>
+          }
+
+          if (error) {
+            console.log(error)
+          }
+
+          return (
+            <FormBox>
+              {step > 0 && (
+                <PrevButton
+                  className="fal fa-arrow-left"
+                  onClick={this.handlePrevStep}
+                />
+              )}
+              {step !== steps.length - 1 ? (
+                <NextButton
+                  className="fal fa-arrow-right"
+                  error={!!error}
+                  onClick={this.handleNextStep}
+                />
+              ) : (
+                <NextButton
+                  className="fal fa-arrow-right"
+                  error={!!error}
+                  onClick={async () => {
+                    await createProfile({
+                      variables: { handle, bio, location, website },
+                    })
+                    navigate('/profile')
+                  }}
+                />
+              )}
+              <InputGroup>
+                {currentStep.type === 'textarea' ? (
+                  <textarea
+                    name={currentStep.name}
+                    rows="5"
+                    value={this.state[currentStep.name]}
+                    onChange={this.handleChange}
+                    required
+                  />
+                ) : (
+                  <input
+                    name={currentStep.name}
+                    type={currentStep.type}
+                    placeholder={currentStep.placeholder}
+                    value={this.state[currentStep.name]}
+                    onChange={this.handleChange}
+                    required
+                  />
+                )}
+                <label>{currentStep.question}</label>
+                <InputProgress error={!!error} />
+              </InputGroup>
+              <ProgressBar complete={step / steps.length} />
+            </FormBox>
+          )
+        }}
+      </Mutation>
     )
   }
 }

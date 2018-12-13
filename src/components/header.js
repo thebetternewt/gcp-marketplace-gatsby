@@ -51,6 +51,7 @@ const HeaderContainer = styled.div`
 
 const HeaderNav = styled.nav`
   display: none;
+  margin-left: auto;
   justify-content: flex-end;
   align-items: center;
 
@@ -80,6 +81,7 @@ const HeaderNav = styled.nav`
 
 // TODO: Figure out appropriate hit area (margin/padding) for menu toggle
 const HeaderMenuToggle = styled.button`
+  margin-left: auto;
   border: none;
   padding: 3px 0 3px 15px;
   background-color: transparent;
@@ -141,7 +143,10 @@ const Header = ({ siteTitle }) => {
         <div />
       </HeaderColorBar>
       <HeaderContainer>
-        <i className="fal fa-cog" />
+        <i
+          className="fal fa-cog"
+          style={{ display: isAuthenticated() ? 'block' : 'none' }}
+        />
         <HeaderNav>
           <Link to="/" activeClassName="active">
             Home
